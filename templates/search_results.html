@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результати пошуку</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Результати пошуку</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">На головну</a>
+        </nav>
+    </header>
+
+    <main>
+        {% if results %}
+            <h2>Знайдено {{ results|length }} результатів</h2>
+            <ul>
+                {% for article in results %}
+                    <li>
+                        <h3><a href="{{ url_for('article_page', article_id=article.id) }}">{{ article.title }}</a></h3>
+                        <p>{{ article.description }}</p>
+                        <img src="{{ url_for('static', filename='images/' + article.img) }}" alt="{{ article.title }}">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>На жаль, нічого не знайдено.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Мій сайт</p>
+    </footer>
+</body>
+</html>

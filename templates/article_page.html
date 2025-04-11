@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article[1] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/" class="link-btn">⬅ Назад</a>
+    </nav>
+    <main>
+        <h1>{{ article[1] }}</h1>
+        <img src="{{ url_for('static', filename=article[4]) }}" alt="Зображення статті" style="width: 300px;">
+        <p>{{ article[2] }}</p>
+        <p><strong>{{ article[3] }}</strong></p>
+    </main>
+</body>
+</html>
