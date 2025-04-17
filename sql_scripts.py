@@ -15,3 +15,5 @@ def get_article_by_id(article_id):
     article = cursor.fetchone()
     conn.close()
     return article
+
+
