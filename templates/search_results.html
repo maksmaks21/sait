@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="text-warning text-center">Результати пошуку</h2>
+    {% if articles %}
+        <div class="row mt-4">
+            {% for article in articles %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 bg-dark text-light">
+                    <img src="{{ url_for('static', filename=article[4]) }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ article[1] }}</h5>
+                        <p class="card-text">{{ article[3] }}</p>
+                        <a href="{{ url_for('article_page', article_id=article[0]) }}" class="btn btn-outline-info mt-auto">Читати далі</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-light fs-5">Такої статті немає.</p>
+    {% endif %}
+</div>
+{% endblock %}

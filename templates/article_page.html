@@ -1,14 +1,27 @@
-
 {% extends 'base.html' %}
-
 {% block content %}
 
-<nav>
-    <a href="/" class="link-btn">⬅ Назад</a>
-</nav>
-<h3 class="card-title my-4 text-center">{{ article[1] }}</h3>
-<img src="{{ url_for('static', filename=article[4]) }}" alt="Зображення статті" style="width: 300px;">
-<p>{{ article[2] }}</p>
-<p><strong>{{ article[3] }}</strong></p>
-    
+
+
+<!-- Назва статті -->
+<h2 class="text-center my-4">{{ article[1] }}</h2>
+
+<!-- Зображення статті -->
+<div class="text-center mb-4">
+    <!-- Перевір, що файл зображення дійсно існує в static/img/ -->
+    <img src="{{ url_for('static', filename=article[4]) }}" alt="Зображення статті" class="img-fluid rounded shadow" style="max-width: 500px;">
+</div>
+
+<!-- Основний текст статті з підсвіткою фону -->
+<div class="p-4 bg-dark text-light rounded">
+    <p style="white-space: pre-line;">{{ article[2] }}</p>
+    <hr>
+    <p><strong>Автор: {{ article[3] }}</strong></p>
+</div>
+
+<!-- Кнопка закриття (повернення назад) -->
+<div class="mt-4 text-center">
+    <a href="/" class="btn btn-outline-light">Закрити статтю</a>
+</div>
+
 {% endblock content %}

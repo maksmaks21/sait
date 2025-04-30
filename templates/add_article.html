@@ -1,20 +1,53 @@
-<!-- templates/add_article.html -->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Додати статтю</title>
+    <title>Додати втуб-статтю</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Додати нову статтю</h2>
-    <form method="POST">
-        <label>Назва:</label><br>
-        <input type="text" name="title"><br><br>
-        <label>Опис:</label><br>
-        <textarea name="description"></textarea><br><br>
-        <label>Зображення (img/назва.jpg):</label><br>
-        <input type="text" name="image"><br><br>
-        <button type="submit">Зберегти</button>
+<body class="bg-dark text-light">
+<div class="container py-5">
+    <h2 class="mb-4">Додати нову втуб-статтю</h2>
+    <!-- Форма додавання статті -->
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Назва статті</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Опис / текст статті</label>
+            <textarea name="description" class="form-control" rows="6" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Автор</label>
+            <input type="text" name="author" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Завантажити своє зображення</label>
+            <input type="file" name="image_file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif" class="form-control">
+        </div>
+
+        <!-- Вибір з наявних зображень -->
+        <div class="mb-3">
+            <label class="form-label">Або оберіть з уже наявних</label>
+            <select name="image" class="form-select">
+                {% for img in images %}
+                    <option value="img/{{ img }}">{{ img }}</option>
+                {% endfor %}
+            </select>
+            <!-- Прев'ю зображень зі скролом -->
+            <div class="mt-2 border rounded p-2" style="max-height: 250px; overflow-y: auto;">
+                <div class="row g-2">
+                    {% for img in images %}
+                    <div class="col-3">\                        <img src="{{ url_for('static', filename='img/' + img) }}" class="img-fluid rounded">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Зберегти</button>
     </form>
+</div>
 </body>
 </html>

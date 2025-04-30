@@ -1,62 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="uk"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мій перший сайт</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Втуберство Блог</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-
+    <!-- Іконка сайту -->
+    <link rel="icon" href="{{ url_for('static', filename='img/image-removebg-preview (4).png') }}" type="image/x-icon">
     
+    <!-- Підключення стилів Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Підключення кастомних стилів -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body  data-bs-theme="dark">
-    <nav class="navbar navbar-expand-lg">
+
+<body>
+    <!-- Верхнє меню сайту -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container">
-          <a class="navbar-brand" href="#">
-            <img src="{{ url_for('static', filename='img/idea_7267604.png')}}" width="30" height="30">
-            LogikaBlog</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Головна</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Контакти</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Категорії
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
+            <!-- Логотип -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <img src="{{ url_for('static', filename='img/image-removebg-preview (3)-Photoroom.png') }}" width="125" height="52" alt="Лого" class="rounded">
+                LogikaBlog
+            </a>
             
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Шукати..." aria-label="Search">
-              <button class="btn btn-outline-light" type="submit">Пошук</button>
-            </form>
-          </div>
+            <!-- Кнопка для мобільного меню -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Меню навігації -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/">Головна</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contacts_page') }}">Контакти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about_page') }}">Про Втуб</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('faq_page') }}">часті питання</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('resources_page') }}">Корисні ресурси</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('reviews_page') }}">відгуки</a></li>
+                </ul>
+
+                <!-- Пошук з підказками -->
+                <form class="d-flex position-relative" action="/search" method="get" autocomplete="off">
+                    <input class="form-control me-2" id="searchInput" name="query" type="search" placeholder="Шукати...">
+                    <button class="btn btn-outline-light" type="submit">Пошук</button>
+
+                    <!--випадаюче вікно -->
+                    <div id="suggestions" class="position-absolute bg-dark text-light border rounded mt-1 w-100" style="z-index: 10;"></div>
+                </form>
+
+            </div>
         </div>
-      </nav>
-    
-    <main class="container" > 
-      
-      {% block content %}
-        
-      {% endblock content %}
-    
+    </nav>
+
+    <!-- Контент сторінки -->
+    <main class="container my-4">
+        {% block content %}
+        {% endblock content %}
     </main>
-    <!-- Підключення JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS для пошуку з підказками -->
+    <script>
+        const input = document.getElementById("searchInput");
+        const suggestions = document.getElementById("suggestions");
+
+        input.addEventListener("input", () => {
+            const query = input.value;
+            if (query.length > 0) {
+                fetch(`/search_suggestions?query=${query}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        suggestions.innerHTML = "";
+                        if (data.length > 0) {
+                            data.forEach(article => {
+                                const div = document.createElement("div");
+                                div.className = "px-2 py-1 suggestion-item";
+                                div.style.cursor = "pointer";
+                                div.textContent = article[1];
+                                div.onclick = () => {
+                                    input.value = article[1];
+                                    suggestions.innerHTML = "";
+                                };
+                                suggestions.appendChild(div);
+                            });
+                        } else {
+                            const noRes = document.createElement("div");
+                            noRes.className = "px-2 py-1 text-muted";
+                            noRes.textContent = "Такої статті немає";
+                            suggestions.appendChild(noRes);
+                        }
+                    });
+            } else {
+                suggestions.innerHTML = "";
+            }
+        });
+
+        // Закриття підказок при кліку поза полем
+        document.addEventListener("click", e => {
+            if (!e.target.closest("#searchInput")) {
+                suggestions.innerHTML = "";
+            }
+        });
+    </script>
 </body>
 </html>
