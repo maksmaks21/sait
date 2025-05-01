@@ -28,3 +28,4 @@ def add_article_to_db(title, text, author, image):
     ''', (title, text, author, image))
     conn.commit()
     conn.close()
+

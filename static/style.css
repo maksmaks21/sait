@@ -1,24 +1,58 @@
 /* Центрування заголовків */
 h1, h2, h3 {
-    text-align: center;
-    color: #ffd700; /* Золото для стилю втуберів */
-  }
-  
-  /* Картки статей */
-  .card {
-    margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    background-color: #1a1a1a;
-  }
-  
-  /* Кнопки */
-  .btn {
-    border-radius: 8px;
-  }
-  
-  /* Загальний стиль для темної теми */
-  body {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
-  
+  text-align: center;
+  color: #ffd700; /* Золото для стилю втуберів */
+}
+
+/* Картки статей */
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+}
+
+/* Кнопки */
+.btn {
+  border-radius: 8px;
+}
+
+/* Загальний стиль для темної теми */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* Повідомлення про помилку з анімацією */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Стиль блока "Такої статті немає" */
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+  border: 2px solid red;
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+/* Вибір картинки (графічне виділення) */
+.selectable-image {
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Підсвітка обраної картинки */
+input[type="radio"].btn-check:checked + label > .selectable-image {
+  border: 3px solid #00bfff;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+}
+
+/* Ефект наведення на картинку */
+.selectable-image:hover {
+  filter: brightness(80%);
+  transition: filter 0.2s ease-in-out;
+}

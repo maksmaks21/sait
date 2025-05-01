@@ -18,7 +18,9 @@
             {% endfor %}
         </div>
     {% else %}
-        <p class="text-center text-light fs-5">Такої статті немає.</p>
+        <div class="search-error animate-shake border border-danger rounded p-3 text-center text-danger mt-4">
+            Такої статті немає
+        </div>
     {% endif %}
-</div>
 {% endblock %}
+

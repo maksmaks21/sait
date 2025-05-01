@@ -31,22 +31,42 @@
             <!-- Меню навігації -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/">Головна</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contacts_page') }}">Контакти</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about_page') }}">Про Втуб</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('faq_page') }}">часті питання</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('resources_page') }}">Корисні ресурси</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('reviews_page') }}">відгуки</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Головна</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'contacts_page' %}active{% endif %}" href="{{ url_for('contacts_page') }}">Контакти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'about_page' %}active{% endif %}" href="{{ url_for('about_page') }}">Про Втуб</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'faq_page' %}active{% endif %}" href="{{ url_for('faq_page') }}">Часті питання</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'resources_page' %}active{% endif %}" href="{{ url_for('resources_page') }}">Корисні ресурси</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'reviews_page' %}active{% endif %}" href="{{ url_for('reviews_page') }}">Відгуки</a>
+                    </li>
+                    
                 </ul>
 
                 <!-- Пошук з підказками -->
-                <form class="d-flex position-relative" action="/search" method="get" autocomplete="off">
-                    <input class="form-control me-2" id="searchInput" name="query" type="search" placeholder="Шукати...">
+                <form class="d-flex" action="/search" method="get" autocomplete="off">
+                      <!-- Поле введення з підключеним списком варіантів -->
+                    <input class="form-control me-2" list="articleList" name="query" type="search" placeholder="Шукати...">
+                      <!-- Випадаючий список можливих заголовків статей -->
+                    <datalist id="articleList">
+                      {% for article in articles %}
+                       <!-- Кожен заголовок додається як варіант -->
+                        <option value="{{ article[1] }}">
+                      {% endfor %}
+                    </datalist>
+                      <!-- Кнопка надсилання пошуку -->
                     <button class="btn btn-outline-light" type="submit">Пошук</button>
-
-                    <!--випадаюче вікно -->
-                    <div id="suggestions" class="position-absolute bg-dark text-light border rounded mt-1 w-100" style="z-index: 10;"></div>
-                </form>
+                  </form>
+                  
 
             </div>
         </div>
@@ -57,6 +77,8 @@
         {% block content %}
         {% endblock content %}
     </main>
-
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

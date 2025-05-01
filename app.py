@@ -19,6 +19,10 @@ def index():
     articles = get_all_articles()
     return render_template("index.html", articles=articles)
 
+@app.context_processor
+def inject_request():
+    return dict(request=request)
+
 @app.route("/search_suggestions")
 def search_suggestions():
     query = request.args.get('query', '').lower()

@@ -27,22 +27,18 @@
             <input type="file" name="image_file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif" class="form-control">
         </div>
 
-        <!-- Вибір з наявних зображень -->
+        <!-- Галерея зображень — вибір кліком -->
         <div class="mb-3">
-            <label class="form-label">Або оберіть з уже наявних</label>
-            <select name="image" class="form-select">
-                {% for img in images %}
-                    <option value="img/{{ img }}">{{ img }}</option>
-                {% endfor %}
-            </select>
-            <!-- Прев'ю зображень зі скролом -->
-            <div class="mt-2 border rounded p-2" style="max-height: 250px; overflow-y: auto;">
-                <div class="row g-2">
-                    {% for img in images %}
-                    <div class="col-3">\                        <img src="{{ url_for('static', filename='img/' + img) }}" class="img-fluid rounded">
-                    </div>
-                    {% endfor %}
-                </div>
+            <label class="form-label">Оберіть зображення</label>
+            <div class="row g-2">
+            {% for img in images %}
+            <div class="col-3">
+                <input type="radio" class="btn-check" name="image" value="img/{{ img }}" id="img{{ loop.index }}" autocomplete="off">
+                <label class="w-100" for="img{{ loop.index }}">
+                <img src="{{ url_for('static', filename='img/' + img) }}" class="img-thumbnail selectable-image w-100">
+                </label>
+            </div>
+            {% endfor %}
             </div>
         </div>
 
