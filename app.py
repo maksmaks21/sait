@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
-from sql_scripts import get_all_articles, get_article_by_id, add_article_to_db
+from sql_scripts import get_all_articles, get_article_by_id, get_all_reviews, add_review, add_article_to_db
 
 app = Flask(__name__)
 

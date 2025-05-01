@@ -29,3 +29,19 @@ def add_article_to_db(title, text, author, image):
     conn.commit()
     conn.close()
 
+# Додати відгук
+def add_review(author, text):
+    conn = sqlite3.connect('ddd.db')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO reviews (author, text) VALUES (?, ?)', (author, text))
+    conn.commit()
+    conn.close()
+
+# Отримати всі відгуки
+def get_all_reviews():
+    conn = sqlite3.connect('ddd.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reviews ORDER BY created DESC')
+    reviews = cursor.fetchall()
+    conn.close()
+    return reviews
