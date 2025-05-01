@@ -21,7 +21,6 @@
             <!-- Логотип -->
             <a class="navbar-brand d-flex align-items-center gap-2" href="/">
                 <img src="{{ url_for('static', filename='img/image-removebg-preview (3)-Photoroom.png') }}" width="125" height="52" alt="Лого" class="rounded">
-                LogikaBlog
             </a>
             
             <!-- Кнопка для мобільного меню -->
@@ -59,51 +58,5 @@
         {% endblock content %}
     </main>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JS для пошуку з підказками -->
-    <script>
-        const input = document.getElementById("searchInput");
-        const suggestions = document.getElementById("suggestions");
-
-        input.addEventListener("input", () => {
-            const query = input.value;
-            if (query.length > 0) {
-                fetch(`/search_suggestions?query=${query}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        suggestions.innerHTML = "";
-                        if (data.length > 0) {
-                            data.forEach(article => {
-                                const div = document.createElement("div");
-                                div.className = "px-2 py-1 suggestion-item";
-                                div.style.cursor = "pointer";
-                                div.textContent = article[1];
-                                div.onclick = () => {
-                                    input.value = article[1];
-                                    suggestions.innerHTML = "";
-                                };
-                                suggestions.appendChild(div);
-                            });
-                        } else {
-                            const noRes = document.createElement("div");
-                            noRes.className = "px-2 py-1 text-muted";
-                            noRes.textContent = "Такої статті немає";
-                            suggestions.appendChild(noRes);
-                        }
-                    });
-            } else {
-                suggestions.innerHTML = "";
-            }
-        });
-
-        // Закриття підказок при кліку поза полем
-        document.addEventListener("click", e => {
-            if (!e.target.closest("#searchInput")) {
-                suggestions.innerHTML = "";
-            }
-        });
-    </script>
 </body>
 </html>
