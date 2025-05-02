@@ -18,8 +18,9 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="search-error animate-shake border border-danger rounded p-3 text-center text-danger mt-4">
-            Такої статті немає
+        <div class="search-error animate-shake border border-danger rounded p-4 text-center text-danger bg-opacity-10">
+            <h4>Такої статті немає</h4>
+            <p>Спробуй інше слово або перевір написання</p>
         </div>
     {% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
-from sql_scripts import get_all_articles, get_article_by_id, get_all_reviews, add_review, add_article_to_db
+from sql_scripts import get_all_articles, get_article_by_id, get_all_reviews, add_review, add_article_to_db, increment_likes, has_liked, save_like
 
 app = Flask(__name__)
 
@@ -84,8 +84,16 @@ def reviews_page():
         username = request.form.get("username")
         message = request.form.get("message")
         if username and message:
-            reviews_list.append((username, message))
-    return render_template("reviews.html", reviews=reviews_list)
+            add_review(username, message)
+    all_reviews = get_all_reviews()
+    return render_template("reviews.html", reviews=all_reviews)
+
+@app.route("/like/<int:article_id>", methods=["POST"])
+def like_article(article_id):
+    ip = request.remote_addr
+    if not has_liked(article_id, ip):
+        save_like(article_id, ip)
+    return redirect(url_for('article_page', article_id=article_id))
 
 if __name__ == "__main__":
     app.config['TEMPLATES_AUTO_RELOAD'] = True

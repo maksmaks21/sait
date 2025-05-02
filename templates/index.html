@@ -2,18 +2,11 @@
 {% block content %}
 
 <!-- Головна сторінка привітання -->
-<div class="text-center my-5">
-    <h1 class="text-warning">Світ Втуберства</h1>
-    <p style="color: #ffd700; font-size: 1.25rem;">
-      Поринь у цифрову творчість і познайомся з віртуальними стрімерами!
-      <figcaption class="blockquote-footer">
-        Сайт зроблено за підтримки мого вчителя в школі програмування Logika</cite>
-      </figcaption>
-    </p>
-    
-    <!-- Кнопка додавання статті -->
-    <a href="/add" class="btn btn-outline-light mt-3"> Додати статтю</a>
-</div>
+<section class="hero-section text-center text-light py-5">
+    <h1 class="display-4 text-warning fw-bold">Світ Vтуберства</h1>
+    <p class="lead mb-4">Поринь у цифрову творчість і познайомся з віртуальними стримерами!</p>
+    <a href="{{ url_for('add_article') }}" class="btn btn-outline-light mt-3">Додати статтю</a>
+</section>
 
 <h2 class="text-warning text-center">Vtube-Статті</h2>
 
@@ -25,11 +18,13 @@
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ article[1] }}</h5>
                 <p class="card-text">{{ article[3] }}</p>
-                <a href="{{ url_for('article_page', article_id=article[0]) }}" class="btn btn-outline-info mt-auto">Читати далі</a>
+                <a href="{{ url_for('article_page', article_id=article[0]) }}" class="btn btn-outline-info mt-auto">Відкрити статтю</a>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-
+<div class="text-center mt-5">
+    <p class="text-light">Сайт зробив zesty01 2травня 2025р.</a></p>
+</div>
 {% endblock content %}

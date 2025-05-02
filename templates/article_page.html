@@ -13,7 +13,7 @@
 </div>
 
 <!-- Основний текст статті з підсвіткою фону -->
-<div class="p-4 bg-dark text-light rounded">
+<div class="p-4 bg-dark text-light rounded border border-warning shadow">
     <p style="white-space: pre-line;">{{ article[2] }}</p>
     <hr>
     <p><strong>Автор: {{ article[3] }}</strong></p>
@@ -23,5 +23,11 @@
 <div class="mt-4 text-center">
     <a href="/" class="btn btn-outline-light">Закрити статтю</a>
 </div>
+
+<form method="POST" action="{{ url_for('like_article', article_id=article[0]) }}" class="text-center mt-3">
+    <button type="submit" class="btn btn-outline-success">
+        👍 Лайк ({{ article[7] or 0 }})
+    </button>
+</form>
 
 {% endblock content %}

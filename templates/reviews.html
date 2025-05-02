@@ -21,11 +21,13 @@
         <ul class="list-group">
             {% for review in reviews %}
             <li class="list-group-item bg-dark text-light">
-                <strong>{{ review[0] }}</strong><br>{{ review[1] }}
+                <strong>{{ review[0] }}</strong><br>{{ review[1] }}<br>
+                <small class="text-light">{{ review[2] }}</small>
             </li>
             {% endfor %}
         </ul>
     </div>
     {% endif %}
+
 </div>
 {% endblock %}

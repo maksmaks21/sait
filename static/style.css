@@ -4,6 +4,12 @@ h1, h2, h3 {
   color: #ffd700; /* Золото для стилю втуберів */
 }
 
+.hero-section{
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+
 /* Картки статей */
 .card {
   margin-bottom: 20px;
@@ -14,6 +20,16 @@ h1, h2, h3 {
 /* Кнопки */
 .btn {
   border-radius: 8px;
+}
+
+.btn-outline-info{
+  border-color: #00bfff;
+  color: #00bfff
+}
+
+.btn-outline-info:hover{
+  border-color: #00bfff;
+  color: #121212
 }
 
 /* Загальний стиль для темної теми */
@@ -52,7 +68,56 @@ input[type="radio"].btn-check:checked + label > .selectable-image {
 }
 
 /* Ефект наведення на картинку */
-.selectable-image:hover {
-  filter: brightness(80%);
-  transition: filter 0.2s ease-in-out;
+.card:hover{
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/*підкреслення тексту при наведенні*/
+.nav-link {
+  position: relative;
+  transition: color 0,3s ease ;
+  display: inline-block;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background-color: #ffffff;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out ;
+}
+
+.nav-link:hover:after,
+.nav-link:active:after{
+  transform: scaleX(1);
+}
+
+.nav-link{
+  color: #e0e0e0;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover{
+  color: #acacac;
+}
+ 
+.nav-link:active {
+  color: #acacac;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(20px);}
 }
