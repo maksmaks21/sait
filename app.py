@@ -9,7 +9,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 UPLOAD_FOLDER = os.path.join('static', 'img')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-reviews_list = []
+reviews_list = [] 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
